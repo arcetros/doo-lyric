@@ -1,0 +1,16 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo 'Testing and building...'
+
+# Check ESLint Standards
+npm run lint ||
+(
+    echo 'Check your linter once again then run npm run lint and try to commit';
+    false;
+)
+
+# Jika test nya sudah oke, maka perubahan akan di commit
+echo 'No error, well done.'
+
+npx lint-staged
