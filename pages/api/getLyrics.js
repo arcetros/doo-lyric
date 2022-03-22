@@ -1,4 +1,4 @@
-import { getLyrics } from 'genius-lyrics-api';
+import { getSong } from 'genius-lyrics-api';
 
 const api = process.env.GENIUS_API;
 
@@ -12,9 +12,10 @@ const handleLyrics = async (req, res) => {
       artist: author,
       optimizeQuery: true,
     };
-    await getLyrics(options)
-      .then((lyrics) => {
-        res.status(200).json({ lyrics });
+
+    await getSong(options)
+      .then((song) => {
+        res.status(200).json(song);
       })
       .catch((err) => res.status(400).json({ error: err }));
   }
