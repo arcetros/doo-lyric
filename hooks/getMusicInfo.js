@@ -18,7 +18,7 @@ const getMusicInfo = ({ inputValue, setIsLoading, setMusicList }) => {
             )}`,
           )
           .then((res) => {
-            setMusicList(res.data.data.slice(0, 3));
+            setMusicList(res.data.data.slice(0, 8));
             setIsLoading(false);
           });
       }
