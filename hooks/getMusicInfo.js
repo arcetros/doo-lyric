@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 
-const musicURI = 'https://api.deezer.com/search?q';
+const musicURI = 'https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q';
 
 const getMusicInfo = ({ inputValue, setIsLoading, setMusicList }) => {
   useEffect(() => {
