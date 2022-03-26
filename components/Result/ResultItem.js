@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import PropTypes from 'prop-types';
 
-export default function ResultItem({ title, artist, cover, albumTitle }) {
+export default function ResultItem({ title, artist, cover, albumTitle, id }) {
   return (
-    <li className="grid grid-cols-4 rounded shadow p-1">
+    <li className="grid grid-cols-4 rounded shadow p-1" onClick={() => console.log(id)} aria-hidden="true">
       <div className="col-span-1 relative h-16 w-16">
         <Image src={cover} layout="fill" className="object-cover rounded pointer-events-none" />
       </div>
@@ -26,4 +26,5 @@ ResultItem.propTypes = {
   artist: PropTypes.string.isRequired,
   cover: PropTypes.string.isRequired,
   albumTitle: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };

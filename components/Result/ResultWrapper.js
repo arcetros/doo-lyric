@@ -7,6 +7,7 @@ function ResultWrapper({ musicList }) {
       {musicList.map((item, key) => (
         <ResultItem
           key={key}
+          id={key}
           title={item.title}
           artist={item.artist.name}
           cover={item.album.cover}

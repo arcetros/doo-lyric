@@ -1,8 +1,8 @@
-import { useState } from 'react';
+/* eslint-disable no-nested-ternary */
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getMusicInfo } from '../hooks';
+import { MusicContext } from '../store/context';
 import { Layout, ResultWrapper, ItemSkeleton, Input } from '../components';
-// import ItemSkeleton from '../components/Result/Skeleton/ItemSkeleton';
 import { SearchIcon, LoadingIcon, XIcon } from '../components/icons';
 
 function CancelIcon({ onClick }) {
@@ -14,26 +14,22 @@ function CancelIcon({ onClick }) {
 }
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [musicList, setMusicList] = useState([]);
-
-  getMusicInfo({ inputValue, setIsLoading, setMusicList });
+  const ctx = useContext(MusicContext);
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    ctx.setInputValue(e.target.value);
   };
 
   const handleDelete = () => {
-    setInputValue('');
-    setMusicList([]);
+    ctx.deleteMusicList();
+    ctx.setInputValue('');
   };
 
   let icon;
 
-  if (inputValue.trim() !== '') {
+  if (ctx.inputValue.trim() !== '') {
     icon = <CancelIcon onClick={handleDelete} />;
-    if (isLoading) {
+    if (ctx.isLoading) {
       icon = <LoadingIcon />;
     }
   } else {
@@ -54,22 +50,30 @@ export default function Home() {
                 <Input
                   type="text"
                   placeholder="Try 'Heavy' by Linkin Park"
-                  value={inputValue}
+                  value={ctx.inputValue}
                   onChange={handleChange}
                 />
                 <span className="absolute right-3 top-2">{icon}</span>
               </div>
             </div>
             <div className="pt-12 w-full">
-              {inputValue.trim() !== '' && isLoading ? (
-                <ItemSkeleton />
-              ) : (
-                musicList && <ResultWrapper musicList={musicList} />
+              {ctx.inputValue.trim() !== '' && (
+                <div>
+                  {ctx.isLoading ? (
+                    <ItemSkeleton />
+                  ) : ctx.musicList.length > 0 ? (
+                    <ResultWrapper musicList={ctx.musicList} />
+                  ) : (
+                    <div className="w-full px-3 min-h-[80px] flex justify-center items-center">
+                      <h3 className="text-gray-600 italic text-center">No Results Found</h3>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
-            {/* <button type="button" onClick={() => console.log(musicList)}>
-          test
-        </button> */}
+            {/* <button type="button" onClick={() => console.log(ctx)}>
+              test
+            </button> */}
           </div>
         </div>
       </div>
