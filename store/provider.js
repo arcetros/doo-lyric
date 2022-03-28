@@ -2,32 +2,19 @@ import { useEffect, useReducer, useMemo } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { MusicContext } from './context';
+import reducer from './reducer';
 
 const defaultState = {
   musicList: [],
   inputValue: '',
   isLoading: false,
-  selectedMusic: {},
-};
-
-const reducer = (state, action) => {
-  if (action.type === 'SET_INPUT_VALUE') {
-    return { ...state, inputValue: action.payload };
-  }
-
-  if (action.type === 'SEARCH_REQUESTED') {
-    return { ...state, isLoading: true };
-  }
-
-  if (action.type === 'SEARCH_RECEIVED') {
-    return { ...state, isLoading: false, musicList: action.payload };
-  }
-
-  if (action.type === 'CLEAR_MUSIC_LIST') {
-    return { ...state, musicList: action.payload };
-  }
-
-  return defaultState;
+  selectedMusic: {
+    songTitle: '',
+    author: '',
+  },
+  loadingLyric: false,
+  songLyric: '',
+  alert: '',
 };
 
 function MusicProvider({ children }) {
@@ -41,8 +28,29 @@ function MusicProvider({ children }) {
     dispatch({ type: 'CLEAR_MUSIC_LIST', payload: [] });
   };
 
-  const selectMusicHandler = (id) => {
-    dispatch({ type: 'SELECT_MUSIC', payload: id });
+  const handleLyric = (value) => {
+    dispatch({ type: 'GET_LYRIC', payload: value });
+  };
+
+  const selectMusicHandler = async (music) => {
+    dispatch({ type: 'LYRIC_REQUESTED' });
+    dispatch({ type: 'SELECT_MUSIC', payload: music });
+    await axios
+      .post('/api/getlyrics', {
+        author: music.author,
+        songTitle: music.songTitle,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          if (res.data.lyrics != null) {
+            handleLyric(res.data.lyrics);
+            dispatch({ type: 'LYRIC_RECEIVED' });
+          } else {
+            dispatch({ type: 'LYRIC_NULL', payload: 'Lyric Not Found' });
+          }
+        }
+      })
+      .catch((err) => dispatch({ type: 'LYRIC_NULL', payload: err }));
   };
 
   const handleMusicList = () => {
@@ -66,6 +74,7 @@ function MusicProvider({ children }) {
     }
   };
   useEffect(() => {
+    dispatch({ type: 'CLEAR_ALERT' });
     dispatch({ type: 'SEARCH_REQUESTED' });
 
     const timer = setTimeout(() => {
@@ -80,12 +89,13 @@ function MusicProvider({ children }) {
       setInputValue: handleInputValue,
       isLoading: state.isLoading,
       musicList: state.musicList,
+      songLyric: state.songLyric,
       deleteMusicList: handleClearList,
       setMusicList: handleMusicList,
       selectedMusic: state.selectedMusic,
       setSelectedMusic: selectMusicHandler,
     }),
-    [state.inputValue, state.musicList, state.selectedMusic, state.isLoading],
+    [state.inputValue, state.musicList, state.selectedMusic, state.isLoading, state.songLyric],
   );
 
   return <MusicContext.Provider value={context}>{children}</MusicContext.Provider>;

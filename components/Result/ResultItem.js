@@ -1,9 +1,16 @@
+import { useContext } from 'react';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
+import { MusicContext } from '../../store/context';
 
-export default function ResultItem({ title, artist, cover, albumTitle, id }) {
+export default function ResultItem({ title, artist, cover, albumTitle }) {
+  const ctx = useContext(MusicContext);
+  const handleSelect = () => {
+    ctx.setSelectedMusic({ author: artist, songTitle: title });
+  };
+
   return (
-    <li className="grid grid-cols-4 rounded shadow p-1" onClick={() => console.log(id)} aria-hidden="true">
+    <li className="grid grid-cols-4 rounded shadow p-1" onClick={handleSelect} aria-hidden="true">
       <div className="col-span-1 relative h-16 w-16">
         <Image src={cover} layout="fill" className="object-cover rounded pointer-events-none" />
       </div>
@@ -26,5 +33,4 @@ ResultItem.propTypes = {
   artist: PropTypes.string.isRequired,
   cover: PropTypes.string.isRequired,
   albumTitle: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
 };
