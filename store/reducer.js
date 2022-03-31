@@ -20,7 +20,7 @@ const reducer = (state, action) => {
   }
 
   if (action.type === 'LYRIC_REQUESTED') {
-    return { ...state, loadingLyric: true };
+    return { ...state, loadingLyric: true, songLyric: '' };
   }
 
   if (action.type === 'LYRIC_RECEIVED') {
@@ -28,15 +28,19 @@ const reducer = (state, action) => {
   }
 
   if (action.type === 'LYRIC_NULL') {
-    return { ...state, alert: action.payload };
+    return { ...state, alert: action.payload, loadingLyric: false };
   }
 
   if (action.type === 'CLEAR_MUSIC_LIST') {
-    return { ...state, musicList: action.payload, selectedMusic: {}, songLyric: '' };
+    return { ...state, musicList: action.payload, selectedMusic: null, songLyric: '', showModal: false };
   }
 
   if (action.type === 'CLEAR_ALERT') {
     return { ...state, alert: '' };
+  }
+
+  if (action.type === 'TOGGLE_MODAL') {
+    return { ...state, showModal: !state.showModal };
   }
 
   return state;

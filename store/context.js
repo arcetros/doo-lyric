@@ -7,9 +7,11 @@ export const MusicContext = React.createContext({
   musicList: [],
   // eslint-disable-next-line no-unused-vars
   setMusicList: () => {},
+  toggleModal: () => {},
   deleteMusicList: () => {},
   selectedMusic: {},
   isLoading: false,
+  showModal: false,
   // eslint-disable-next-line no-unused-vars
   setSelectedMusic: (music) => {},
 });

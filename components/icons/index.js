@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function SearchIcon() {
   return (
@@ -49,4 +50,31 @@ function XIcon() {
   );
 }
 
-export { SearchIcon, LoadingIcon, XIcon };
+function CancelIcon({ onClick }) {
+  return (
+    <span onClick={onClick} aria-hidden="true" className="cursor-pointer">
+      <XIcon />
+    </span>
+  );
+}
+
+function ChevronUp() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-7 w-7 text-yellow-600 animate-pulse"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  );
+}
+
+export { SearchIcon, LoadingIcon, XIcon, CancelIcon, ChevronUp };
+
+CancelIcon.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

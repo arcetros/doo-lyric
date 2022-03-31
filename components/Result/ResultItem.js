@@ -3,10 +3,11 @@ import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { MusicContext } from '../../store/context';
 
-export default function ResultItem({ title, artist, cover, albumTitle }) {
+export default function ResultItem({ title, artist, cover, albumTitle, data }) {
   const ctx = useContext(MusicContext);
   const handleSelect = () => {
-    ctx.setSelectedMusic({ author: artist, songTitle: title });
+    ctx.setSelectedMusic({ author: artist, songTitle: title, artistData: data });
+    console.log(data);
   };
 
   return (
@@ -33,4 +34,5 @@ ResultItem.propTypes = {
   artist: PropTypes.string.isRequired,
   cover: PropTypes.string.isRequired,
   albumTitle: PropTypes.string.isRequired,
+  data: PropTypes.objectOf(PropTypes.any.isRequired).isRequired,
 };

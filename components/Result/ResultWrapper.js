@@ -8,6 +8,7 @@ function ResultWrapper({ musicList }) {
         <ResultItem
           key={key}
           id={key}
+          data={item}
           title={item.title}
           artist={item.artist.name}
           cover={item.album.cover}

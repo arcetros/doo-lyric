@@ -8,13 +8,11 @@ const defaultState = {
   musicList: [],
   inputValue: '',
   isLoading: false,
-  selectedMusic: {
-    songTitle: '',
-    author: '',
-  },
+  selectedMusic: null,
   loadingLyric: false,
   songLyric: '',
   alert: '',
+  showModal: false,
 };
 
 function MusicProvider({ children }) {
@@ -28,8 +26,8 @@ function MusicProvider({ children }) {
     dispatch({ type: 'CLEAR_MUSIC_LIST', payload: [] });
   };
 
-  const handleLyric = (value) => {
-    dispatch({ type: 'GET_LYRIC', payload: value });
+  const handleToggle = () => {
+    dispatch({ type: 'TOGGLE_MODAL' });
   };
 
   const selectMusicHandler = async (music) => {
@@ -43,14 +41,16 @@ function MusicProvider({ children }) {
       .then((res) => {
         if (res.status === 200) {
           if (res.data.lyrics != null) {
-            handleLyric(res.data.lyrics);
+            dispatch({ type: 'GET_LYRIC', payload: res.data.lyrics });
             dispatch({ type: 'LYRIC_RECEIVED' });
           } else {
-            dispatch({ type: 'LYRIC_NULL', payload: 'Lyric Not Found' });
+            dispatch({ type: 'LYRIC_NULL', payload: 'We couldnt found any lyric for this song :(' });
           }
         }
       })
-      .catch((err) => dispatch({ type: 'LYRIC_NULL', payload: err }));
+      .catch((err) => {
+        dispatch({ type: 'LYRIC_NULL', payload: err });
+      });
   };
 
   const handleMusicList = () => {
@@ -69,7 +69,7 @@ function MusicProvider({ children }) {
           },
         )
         .then((res) => {
-          dispatch({ type: 'SEARCH_RECEIVED', payload: res.data.data.slice(0, 7) });
+          dispatch({ type: 'SEARCH_RECEIVED', payload: res.data.data.slice(0, 5) });
         });
     }
   };
@@ -88,14 +88,27 @@ function MusicProvider({ children }) {
       inputValue: state.inputValue,
       setInputValue: handleInputValue,
       isLoading: state.isLoading,
+      alert: state.alert,
       musicList: state.musicList,
       songLyric: state.songLyric,
+      showModal: state.showModal,
+      toggleModal: handleToggle,
+      loadingLyric: state.loadingLyric,
       deleteMusicList: handleClearList,
       setMusicList: handleMusicList,
       selectedMusic: state.selectedMusic,
       setSelectedMusic: selectMusicHandler,
     }),
-    [state.inputValue, state.musicList, state.selectedMusic, state.isLoading, state.songLyric],
+    [
+      state.inputValue,
+      state.musicList,
+      state.selectedMusic,
+      state.isLoading,
+      state.songLyric,
+      state.showModal,
+      state.alert,
+      state.loadingLyric,
+    ],
   );
 
   return <MusicContext.Provider value={context}>{children}</MusicContext.Provider>;

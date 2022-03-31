@@ -2,16 +2,8 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { MusicContext } from '../store/context';
-import { Layout, ResultWrapper, ItemSkeleton, Input } from '../components';
-import { SearchIcon, LoadingIcon, XIcon } from '../components/icons';
-
-function CancelIcon({ onClick }) {
-  return (
-    <span onClick={onClick} aria-hidden="true" className="cursor-pointer">
-      <XIcon />
-    </span>
-  );
-}
+import { Layout, ResultWrapper, ItemSkeleton, Input, Sticky } from '../components';
+import { SearchIcon, LoadingIcon, CancelIcon } from '../components/icons';
 
 export default function Home() {
   const ctx = useContext(MusicContext);
@@ -77,6 +69,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {ctx.selectedMusic != null && <Sticky />}
     </Layout>
   );
 }
