@@ -17,7 +17,6 @@ const defaultState = {
 
 function MusicProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, defaultState);
-
   const handleInputValue = (value) => {
     dispatch({ type: 'SET_INPUT_VALUE', payload: value });
   };
@@ -44,7 +43,7 @@ function MusicProvider({ children }) {
             dispatch({ type: 'GET_LYRIC', payload: res.data.lyrics });
             dispatch({ type: 'LYRIC_RECEIVED' });
           } else {
-            dispatch({ type: 'LYRIC_NULL', payload: 'We couldnt found any lyric for this song :(' });
+            dispatch({ type: 'LYRIC_NULL', payload: "We couldn't find any lyric for this song yet" });
           }
         }
       })
@@ -54,7 +53,7 @@ function MusicProvider({ children }) {
   };
 
   const handleMusicList = () => {
-    const url = 'https://doo-proxy.herokuapp.com/https://api.deezer.com/search?q';
+    const url = process.env.NEXT_PUBLIC_MUSIC_URI;
     if (state.inputValue.trim() !== '') {
       axios
         .get(
@@ -69,12 +68,17 @@ function MusicProvider({ children }) {
           },
         )
         .then((res) => {
-          dispatch({ type: 'SEARCH_RECEIVED', payload: res.data.data.slice(0, 5) });
+          if (res.status === 200) {
+            if (res.data.data.length !== 0) {
+              dispatch({ type: 'SEARCH_RECEIVED', payload: res.data.data.slice(0, 5) });
+            } else {
+              dispatch({ type: 'SEARCH_NULL', payload: 'No results found' });
+            }
+          }
         });
     }
   };
   useEffect(() => {
-    dispatch({ type: 'CLEAR_ALERT' });
     dispatch({ type: 'SEARCH_REQUESTED' });
 
     const timer = setTimeout(() => {

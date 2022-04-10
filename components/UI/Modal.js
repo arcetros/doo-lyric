@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 
 export default function Modal({ children }) {
   return (
-    <div className="fixed inset-0 w-full h-screen z-20">
-      <div className="fixed top-0 w-full">{children}</div>
+    <div className="fixed inset-0 w-full min-h-screen z-20">
+      <div className="fixed w-full h-full">{children}</div>
     </div>
   );
 }

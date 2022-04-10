@@ -4,7 +4,7 @@ export default function Input({ type, value, placeholder, onChange }) {
   return (
     <input
       type={type}
-      className="w-full outline outline-1 rounded p-2 text-xs text-gray-700 placeholder:text-gray-500 placeholder:text-xs"
+      className="w-full outline outline-1 rounded p-2 text-xs text-gray-700 focus:outline-0 focus:ring-1 focus:ring-yellow-400 placeholder:text-gray-500 placeholder:text-xs"
       placeholder={placeholder}
       value={value}
       onChange={onChange}

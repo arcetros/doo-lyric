@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { FaGithub } from 'react-icons/fa';
 import { MusicContext } from '../store/context';
 import { Layout, ResultWrapper, ItemSkeleton, Input, Sticky } from '../components';
 import { SearchIcon, LoadingIcon, CancelIcon } from '../components/icons';
@@ -34,9 +35,21 @@ export default function Home() {
         <div className="max-w-xs mx-auto">
           <div className="flex flex-col">
             <div className="flex w-full mx-auto flex-col">
-              <div className="leading-none mb-4">
-                <h1 className="font-bold text-3xl">doo-lyric</h1>
-                <span className="text-xs text-gray-500">find your desired song lyric!</span>
+              <div className="flex justify-between items-center leading-none mb-4">
+                <div>
+                  <h1 className="font-bold text-3xl">doo-lyric</h1>
+                  <span className="text-xs text-gray-500">find your desired song lyric!</span>
+                </div>
+                <div className="self-end text-lg">
+                  <a
+                    className="hover:text-gray-400   transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    href="https://github.com/arcetros"
+                  >
+                    <FaGithub />
+                  </a>
+                </div>
               </div>
               <div className="relative w-full">
                 <Input
@@ -57,15 +70,12 @@ export default function Home() {
                     <ResultWrapper musicList={ctx.musicList} />
                   ) : (
                     <div className="w-full px-3 min-h-[80px] flex justify-center items-center">
-                      <h3 className="text-gray-600 italic text-center">No Results Found</h3>
+                      <h3 className="text-gray-600 text-center">{ctx.alert}</h3>
                     </div>
                   )}
                 </div>
               )}
             </div>
-            {/* <button type="button" onClick={() => console.log(ctx)}>
-              test
-            </button> */}
           </div>
         </div>
       </div>

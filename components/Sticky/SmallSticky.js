@@ -4,7 +4,7 @@ import { ChevronUp } from '../icons';
 
 function SmallSticky({ onToggle, context }) {
   return (
-    <div className="flex mx-auto w-full shadow-md">
+    <div className="flex mx-auto w-full shadow-md z-10 bg-white">
       <div className="w-full flex items-center justify-between my-2 mx-4 md:mx-10">
         <div className="flex items-center gap-x-4">
           <div className="col-span-1 relative h-16 w-16">

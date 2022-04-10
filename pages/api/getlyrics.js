@@ -1,6 +1,6 @@
 import { getSong } from 'genius-lyrics-api';
 
-const api = 'h6CEqgnJ3h8SASwNR1TQCha90V91ciIJTYwbnLWzGaRGkLTrrxsFcEgWf1N8KxsL';
+const api = process.env.NEXT_PUBLIC_GENIUS_API;
 
 const handleLyrics = async (req, res) => {
   const { author, songTitle } = req.body;

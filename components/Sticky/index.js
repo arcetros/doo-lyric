@@ -13,7 +13,7 @@ function Sticky() {
   return (
     <div
       className={`w-full ${
-        ctx.showModal ? fullScreen : 'sticky bottom-0 h-[85px]  border-t border-yellow-400'
+        ctx.showModal ? fullScreen : 'sticky bottom-0 h-[85px]  border-t-2 border-yellow-400'
       } bg-white`}
     >
       {ctx.showModal ? <FullSticky onToggle={toggle} context={ctx} /> : <SmallSticky onToggle={toggle} context={ctx} />}

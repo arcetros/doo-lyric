@@ -1,8 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center"><img src="https://i.postimg.cc/1tXXkbsX/logo-png.png"></p>
 
-## Getting Started
+<p align="center">
+<img src="https://img.shields.io/badge/-beta-gold">
+<a href="https://github.com/arcetros/doo-lyric/blob/main/LICENSE.md" target="_blank"><img alt="License" src="https://img.shields.io/github/license/arcetros/doo-lyric?color=37bf5d"></a>
+<img src="https://img.shields.io/github/languages/top/arcetros/doo-lyric">
+<img src="https://img.shields.io/github/checks-status/arcetros/doo-lyric/main">
+</p>
 
-First, run the development server:
+## About the project
+
+On this project I implemented what I have learned in [React Complete Guide](https://www.udemy.com/course/react-the-complete-guide-incl-redux/) by Maximilian Schwarzmüller from first section up to "_Sending http requests_" section.
+
+I built this website which allow the users to fetch any song lyrics from Genius by querying artist name or song title (using Deezer API). However, I'm aware that this project still leaves room for improvement, and I will be adding those lacking features in the future.
+
+[Try it out the live demo of this project !](https://doo-lyric.vercel.app/)
+
+Inspired by [Sing-Watch](https://github.com/JoaoGabriel-Lima/SingWatch) from [João Gabriel](https://github.com/JoaoGabriel-Lima)
+
+## Prerequisites
+
+**Cloning the Repository**
+
+```
+$ git clone https://github.com/arcetros/doo-lyric
+
+$ cd doo-lyric
+```
+
+**Installing dependencies**
+
+```
+$ yarn
+```
+
+_or_
+
+```
+$ npm install
+
+```
+
+### Preparing For running
+
+Change the environment variables on in [/.env.development](https://github.com/arcetros/doo-lyric/blob/main/.env.development) acccording to yours
+
+```
+NEXT_PUBLIC_GENIUS_API= <insert here>
+NEXT_PUBLIC_MUSIC_URI= <insert here>
+```
+
+### Run the application
 
 ```bash
 npm run dev
@@ -10,25 +57,15 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Built With
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [Next.js](https://nextjs.org/) - The React Framework  
+  for Production
+- [Axios](https://github.com/axios/axios) - HTTP Client
+- [ESlint](https://eslint.org/) - Linter
+- [Prettier](https://prettier.io/) - Code Formatter
+- [Babel](https://babeljs.io/) - JavaScript Compiler
+- [react-icons](https://react-icons.github.io/react-icons/) - Icons Library
+- [genius-lyrics-api](https://www.npmjs.com/package/genius-lyrics-api) - Lyrics fetcher
+- [TailwindCSS](https://tailwindcss.com/) - CSS framework

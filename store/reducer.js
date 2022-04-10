@@ -4,11 +4,19 @@ const reducer = (state, action) => {
   }
 
   if (action.type === 'SEARCH_REQUESTED') {
-    return { ...state, isLoading: true };
+    return { ...state, isLoading: true, musicList: [], alert: '' };
   }
 
   if (action.type === 'SEARCH_RECEIVED') {
     return { ...state, isLoading: false, musicList: action.payload };
+  }
+
+  if (action.type === 'SHOW_ALL') {
+    return { ...state, musicList: action.payload };
+  }
+
+  if (action.type === 'SEARCH_NULL') {
+    return { ...state, isLoading: false, alert: action.payload };
   }
 
   if (action.type === 'SELECT_MUSIC') {
